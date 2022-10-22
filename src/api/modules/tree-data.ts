@@ -1,10 +1,10 @@
 /*
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2022-07-21 17:27:55
- * @LastEditTime: 2022-09-12 23:49:12
+ * @LastEditTime: 2022-10-22 17:47:40
  * @LastEditors: zouyaoji
  * @Description:
- * @FilePath: \vue-cesium-demo\src\api\modules\tree-data.ts
+ * @FilePath: \vue-cesium-earth\src\api\modules\tree-data.ts
  */
 import { v4 as uuidv4 } from 'uuid'
 export default [
@@ -81,55 +81,6 @@ export default [
             }
           }
         ]
-      },
-      {
-        id: uuidv4(),
-        name: '水系',
-        icon: '',
-        checked: false,
-        expanded: false,
-        fetchStr: `/datas/work-bench/水系.json`,
-        renderingType: 'polyline',
-        lazy: true,
-        props: {
-          polyline: {
-            width: 1
-          }
-        },
-        selectedProps: {
-          polyline: {
-            width: 2,
-            material: '#ffc107'
-          }
-        }
-      },
-      {
-        id: uuidv4(),
-        name: '岛屿',
-        icon: '',
-        checked: false,
-        expanded: false,
-        fetchStr: `/datas/work-bench/岛屿.json`,
-        renderingType: 'polygon,polyline,billboard',
-        lazy: true,
-        props: {
-          billboard: {
-            image: `${import.meta.env.BASE_URL}images/岛屿.svg`,
-            scale: 0.2,
-            verticalOrigin: 1,
-            scaleByDistance: [1e2, 2, 1.5e5, 0.5],
-            distanceDisplayCondition: [0, 3.0e6]
-          },
-          polygon: { material: 'rgba(137,207,240,0.5)' },
-          polyline: { width: 4, material: '#0033ff' }
-        },
-        selectedProps: {
-          billboard: {
-            scale: 0.5
-          },
-          polygon: { material: '#ffc107' },
-          polyline: { width: 8, material: 'red' }
-        }
       },
       {
         id: uuidv4(),
@@ -225,7 +176,7 @@ export default [
       },
       {
         id: uuidv4(),
-        name: '图层',
+        name: '地图',
         icon: '',
         checked: false,
         expanded: false,

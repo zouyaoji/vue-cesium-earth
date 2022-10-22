@@ -1,18 +1,18 @@
 <!--
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2022-01-04 16:19:31
- * @LastEditTime: 2022-09-13 23:21:02
+ * @LastEditTime: 2022-10-22 17:25:06
  * @LastEditors: zouyaoji
  * @Description:
- * @FilePath: \vue-cesium-demo\src\components\layer-manager\Index.vue
+ * @FilePath: \vue-cesium-earth\src\components\layer-manager\Index.vue
 -->
 <template>
-  <div class="layer-manager" :class="dynamicRenderLayout.datasource.workBench ? '' : 'full-srceen'">
+  <div class="layer-manager" :class="layoutStore.control.layerManger.show ? '' : 'full-srceen'">
     <drag-wrapper ref="dragWrapperRef">
       <common-panel
-        v-show="globalLayout.layerManager"
+        v-show="layoutStore.control.onlineLayers.show"
         class="layer-manager-panel"
-        :title="$t('message.panel.layerManager')"
+        title="在线图层"
         title-class="drag-handle"
         @close="onLayerManagerToggle"
       >
@@ -157,9 +157,7 @@ const terrainLayerSwitch = (data, evt) => {
 }
 
 const onLayerManagerToggle = () => {
-  layoutStore.toggleGlobalLayout({
-    layerManager: !globalLayout.value.layerManager
-  })
+  layoutStore.control.onlineLayers.show = !layoutStore.control.onlineLayers.show
 }
 </script>
 
@@ -178,7 +176,7 @@ const onLayerManagerToggle = () => {
 
   @media (min-width: $breakpoint-md) {
     left: $left-panel-width + 20px;
-    top: 90px;
+    top: 10px;
     right: 110px;
     bottom: 0;
   }

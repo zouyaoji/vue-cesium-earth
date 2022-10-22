@@ -1,10 +1,10 @@
 /*
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2021-08-26 17:00:08
- * @LastEditTime: 2022-09-04 14:30:43
+ * @LastEditTime: 2022-10-22 17:51:58
  * @LastEditors: zouyaoji
  * @Description:
- * @FilePath: \vue-cesium-demo\.eslintrc.js
+ * @FilePath: \vue-cesium-earth\.eslintrc.js
  */
 module.exports = {
   // https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
@@ -103,6 +103,7 @@ module.exports = {
     'vue/singleline-html-element-content-newline': 'off',
     'vue/html-self-closing': 'off',
     'vue/require-default-prop': 'off',
-    'vue/html-closing-bracket-spacing': 'error'
+    'vue/html-closing-bracket-spacing': 'error',
+    'vue/multi-word-component-names': 'off'
   }
 }

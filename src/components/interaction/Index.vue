@@ -1,20 +1,22 @@
 <!--
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2022-01-04 16:14:41
- * @LastEditTime: 2022-09-14 22:11:25
+ * @LastEditTime: 2022-10-22 17:33:56
  * @LastEditors: zouyaoji
  * @Description:
- * @FilePath: \vue-cesium-demo\src\components\interaction\Index.vue
+ * @FilePath: \vue-cesium-earth\src\components\interaction\Index.vue
 -->
 <template>
   <div class="main-interaction">
     <div class="panel-wrapper">
-      <!-- 图层管理面板 -->
+      <!-- 在线图层管理面板 -->
       <layer-manager />
       <!-- 要素信息面板 -->
       <feature-info-panel />
       <!-- 视频播放面板 -->
       <device-player-panel />
+      <!-- 个人数据数  -->
+      <work-bench></work-bench>
     </div>
   </div>
 </template>
@@ -25,6 +27,7 @@ import LayerManager from '@src/components/layer-manager/Index.vue'
 import FeatureInfoPanel from '@src/components/feature-info-panel/Index.vue'
 import DevicePlayerPanel from '@src/components/device-player-panel/Index.vue'
 import { ThemeOptions } from '@src/types/theme'
+import WorkBench from '../work-bench/Index.vue'
 
 defineOptions({
   name: 'VcDemoInteraction'

@@ -1,23 +1,31 @@
 <!--
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2022-01-04 16:12:47
- * @LastEditTime: 2022-08-28 14:43:49
+ * @LastEditTime: 2022-10-22 17:12:24
  * @LastEditors: zouyaoji
  * @Description:
- * @FilePath: \vue-cesium-demo\src\components\viewer\Index.vue
+ * @FilePath: \vue-cesium-earth\src\components\viewer\Index.vue
 -->
 <template>
   <vc-config-provider :locale="vclocale" :cesium-path="cesiumPath" :access-token="accesstToken">
-    <vc-viewer ref="viewerRef" class="main-viewer" @ready="onViewerReady" @cesiumReady="onCesiumReady">
+    <vc-viewer ref="viewerRef" class="main-viewer" @ready="onViewerReady" @cesium-ready="onCesiumReady">
       <!-- 导航罗盘控件 -->
       <vc-navigation
         :offset="navOffset"
-        :compass-opts="compassOpts"
-        :zoom-opts="zoomOpts"
-        :print-opts="printOpts"
-        :location-opts="locationOpts"
-        :other-opts="otherOpts"
-      />
+        :compass-opts="layoutStore.control.compass.show ? compassOpts : false"
+        :zoom-opts="false"
+        :print-opts="false"
+        :location-opts="false"
+        :other-opts="layoutStore.control.statusBar.show ? otherOpts : false"
+      ></vc-navigation>
+      <!-- <vc-compass
+        v-if="layoutStore.control.compass.show"
+        :outer-options="compassOpts.outerOptions"
+        :inner-options="compassOpts.innerOptions"
+        :marker-options="compassOpts.markerOptions"
+      ></vc-compass>
+      <vc-status-bar v-if="layoutStore.control.statusBar.show" :offset="barOffset"></vc-status-bar>
+      <vc-distance-legend v-if="layoutStore.control.distanceLegend.show"></vc-distance-legend> -->
       <!-- 请求进度条 -->
       <vc-ajax-bar position="bottom" color="#21BA45" size="3px" positioning="fixed"></vc-ajax-bar>
       <!-- 动态渲染的数据 -->
@@ -88,6 +96,8 @@ const vclocale = computed(() => {
 
 // state
 const themeStore = store.system.useThemeStore()
+const layoutStore = store.system.useLayoutStore()
+
 const theme = computed<ThemeOptions>(() => {
   return themeStore.themeConfig[themeStore.activeName]
 })
@@ -96,7 +106,7 @@ const { toggleGlobalLayout } = store.system.useLayoutStore()
 
 const { registerTimeout } = useTimeout()
 const viewerRef = ref<VcViewerRef>(null)
-const navOffset = ref<[number, number]>([0, 75])
+const navOffset = ref<[number, number]>([0, 0])
 
 const compassOpts = computed<VcCompassProps>(() => {
   return {
@@ -210,3 +220,18 @@ const onDestroyed = e => {
   // clearMouseOverlayLabel()
 }
 </script>
+
+<style lang="scss" scoped>
+.navigation-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  .navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+</style>

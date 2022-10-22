@@ -1,65 +1,24 @@
 <!--
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2021-12-14 16:36:31
- * @LastEditTime: 2022-09-20 11:25:11
+ * @LastEditTime: 2022-10-22 09:02:45
  * @LastEditors: zouyaoji
  * @Description:
- * @FilePath: \vue-cesium-demo\src\layouts\MainLayout.vue
+ * @FilePath: \vue-cesium-earth\src\layouts\MainLayout.vue
 -->
 <template>
   <q-layout view="hHh Lpr fFf" class="main-layout" :class="{ 'gray-mode': grayActive }">
-    <q-drawer
-      v-if="asideMenus?.length && globalLayout.header"
-      v-model="drawer"
-      show-if-above
-      :width="180"
-      :breakpoint="500"
-      bordered
-      :mini="globalLayout.leftDrawerMini"
-    >
-      <q-list class="drawer-menu-list">
-        <template v-for="(menuItem, index) in asideMenus" :key="index">
-          <q-item
-            v-ripple
-            clickable
-            active-class="menu-active-item"
-            :active="menuItem.name === currentRouteName"
-            @click="$router.push(menuItem.path)"
-          >
-            <q-item-section avatar>
-              <q-icon :name="menuItem.icon" />
-            </q-item-section>
-            <q-item-section>
-              {{ $t(menuItem.title) || menuItem.caption }}
-            </q-item-section>
-            <q-tooltip
-              v-if="globalLayout.leftDrawerMini"
-              transition-show="scale"
-              transition-hide="scale"
-              anchor="center right"
-              self="center left"
-            >
-              {{ $t(menuItem.title) || menuItem.caption }}
-            </q-tooltip>
-          </q-item>
-          <q-separator v-if="menuItem.separator" :key="'sep' + index" />
-        </template>
-      </q-list>
-    </q-drawer>
-    <q-page-container class="no-padding">
-      <q-page class="interaction-root">
-        <!-- vc-viewer -->
-        <main-viewer>
-          <!-- header -->
-          <header v-show="globalLayout.header" elevated reveal class="absolute text-h4 text-center">
-            <main-header />
-          </header>
-          <!-- overylay-content / router-view -->
-          <div v-if="globalLayout.content" class="content">
+    <!-- header -->
+    <q-header v-if="layoutStore.header.visible" elevated class="main-header-container">
+      <main-header />
+    </q-header>
+    <q-page-container>
+      <q-page class="interaction-root" :style-fn="myTweak">
+        <main-viewer @viewer-ready="onViewerReady">
+          <div v-if="layoutStore.global.content" class="content">
             <main-interaction />
             <router-view />
           </div>
-          <!-- footer -->
         </main-viewer>
       </q-page>
     </q-page-container>
@@ -84,17 +43,24 @@ defineOptions({
 
 const $route = useRoute()
 // state
-const globalLayout = storeToRefs(store.system.useLayoutStore()).global
+const layoutStore = store.system.useLayoutStore()
 const { active: grayActive } = storeToRefs(store.system.useGrayStore())
 const menuStore = store.system.useMenuStore()
-
-const drawer = ref(false)
 
 // computed
 const headerMenus = computed(() => {
   const header = menuStore.header
   return header.length ? header[0].children : []
 })
+
+const myTweak = offset => {
+  // "offset" is a Number (pixels) that refers to the total
+  // height of header + footer that occupies on screen,
+  // based on the QLayout "view" prop configuration
+
+  // this is actually what the default style-fn does in Quasar
+  return { height: `calc(100vh - ${140}px)` }
+}
 
 const asideMenus = computed(() => {
   return menuStore.aside
@@ -161,24 +127,28 @@ onMounted(() => {
     })
   }
 })
+
+const onViewerReady = () => {
+  layoutStore.header.visible = true
+}
 </script>
 <style lang="scss" scoped>
 .main-layout {
   width: 100%;
   overflow: hidden;
 
-  ::v-deep(.q-page-container) {
-    padding-top: 70px;
-  }
-  ::v-deep(.q-drawer) {
-    // height: 350px;
-    height: fit-content;
-    top: 120px;
-    left: 12px;
-  }
-  ::v-deep(.q-drawer--left) {
-    background: var(--themeQMenuBackgroundColor);
-  }
+  // ::v-deep(.q-page-container) {
+  //   padding-top: 70px;
+  // }
+  // ::v-deep(.q-drawer) {
+  //   // height: 350px;
+  //   height: fit-content;
+  //   top: 120px;
+  //   left: 12px;
+  // }
+  // ::v-deep(.q-drawer--left) {
+  //   background: var(--themeQMenuBackgroundColor);
+  // }
   &.gray-mode {
     -webkit-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
@@ -188,15 +158,12 @@ onMounted(() => {
     filter: gray;
   }
 
-  header {
-    height: 60px;
-    line-height: 60px;
-    position: absolute;
-    z-index: $z-fab + 20;
-    top: 10px;
-    left: 10px;
-    border-radius: 30px;
-    pointer-events: none;
+  & > .main-header-container {
+    // height: 75px;
+    width: 100%;
+    z-index: 2;
+    // background-color: black;
+    background-color: v-bind('theme.header.themeHeaderContentBackgroundColor');
   }
 
   .drawer-menu-list {

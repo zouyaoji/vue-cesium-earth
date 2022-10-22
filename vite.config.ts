@@ -1,10 +1,10 @@
 /*
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2021-12-08 23:26:13
- * @LastEditTime: 2022-08-24 22:29:29
+ * @LastEditTime: 2022-10-21 22:42:21
  * @LastEditors: zouyaoji
  * @Description:
- * @FilePath: \vue-cesium-demo\vite.config.ts
+ * @FilePath: \vue-cesium-earth\vite.config.ts
  */
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -31,11 +31,11 @@ export default ({ mode }) => {
   return defineConfig({
     base: process.env.VITE_VUE_ROUTER_BASE,
     plugins: [
+      defineOptions(),
+      vueJsx(),
       vue({
         template: { transformAssetUrls }
       }),
-      vueJsx(),
-      defineOptions(),
       quasar({
         sassVariables: true
       }),
@@ -69,7 +69,7 @@ export default ({ mode }) => {
     server: {
       host: '0.0.0.0',
       https: false,
-      port: 3000,
+      port: 3500,
       proxy: {
         '/traffictile': {
           target: 'https://tm.amap.com/trafficengine/mapabc/traffictile',

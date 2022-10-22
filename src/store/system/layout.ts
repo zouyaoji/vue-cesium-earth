@@ -1,10 +1,10 @@
 /*
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2022-05-13 16:40:38
- * @LastEditTime: 2022-08-06 21:59:30
+ * @LastEditTime: 2022-10-22 17:24:43
  * @LastEditors: zouyaoji
  * @Description:
- * @FilePath: \vue-cesium-demo\src\store\system\layout.ts
+ * @FilePath: \vue-cesium-earth\src\store\system\layout.ts
  */
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { isBoolean } from 'lodash'
@@ -25,6 +25,32 @@ export type GlobalLayoutOpts = {
 export const useLayoutStore = defineStore('layout', {
   // a function that returns a fresh state
   state: () => ({
+    header: {
+      visible: false,
+      dropdown: { show: false, componentName: '', top: 0, left: 0 },
+      elevationContourActive: false,
+      terrainSampling: {
+        show: false,
+        datas: []
+      }
+    },
+    control: {
+      onlineLayers: {
+        show: false
+      },
+      layerManger: {
+        show: true
+      },
+      compass: {
+        show: true
+      },
+      statusBar: {
+        show: true
+      },
+      distanceLegend: {
+        show: true
+      }
+    },
     global: {
       header: false,
       leftDrawerMini: true,

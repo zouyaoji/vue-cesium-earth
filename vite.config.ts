@@ -1,8 +1,8 @@
 /*
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2021-12-08 23:26:13
- * @LastEditTime: 2022-10-21 22:42:21
- * @LastEditors: zouyaoji
+ * @LastEditTime: 2023-08-14 17:38:58
+ * @LastEditors: zouyaoji 370681295@qq.com
  * @Description:
  * @FilePath: \vue-cesium-earth\vite.config.ts
  */
@@ -11,7 +11,6 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import defineOptions from 'unplugin-vue-define-options/vite'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('./package.json')
@@ -31,7 +30,6 @@ export default ({ mode }) => {
   return defineConfig({
     base: process.env.VITE_VUE_ROUTER_BASE,
     plugins: [
-      defineOptions(),
       vueJsx(),
       vue({
         template: { transformAssetUrls }
@@ -109,7 +107,8 @@ export default ({ mode }) => {
       }
     },
     define: {
-      __APP_VERSION__: JSON.stringify(packageJson.version)
+      __APP_VERSION__: JSON.stringify(packageJson.version),
+      'process.env': {}
     }
   })
 }

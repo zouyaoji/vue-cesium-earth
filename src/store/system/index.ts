@@ -1,15 +1,14 @@
 /*
  * @Author: tanghuang-liu 916650458@qq.com
  * @Date: 2022-05-16 09:21:24
- * @LastEditors: zouyaoji
- * @LastEditTime: 2022-05-26 10:39:44
- * @FilePath: \vue-cesium-demo\src\store\system\index.ts
+ * @LastEditors: zouyaoji 370681295@qq.com
+ * @LastEditTime: 2023-08-14 17:48:03
+ * @FilePath: \vue-cesium-earth\src\store\system\index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { Pinia } from 'pinia'
 import { useAccountStore } from './account'
 import { useDBStore } from './db'
-import { useFullscreenStore } from './fullscreen'
 import { useGrayStore } from './gray'
 import { useLayoutStore } from './layout'
 import { useLogStore } from './log'
@@ -24,7 +23,6 @@ import { useUserStore } from './user'
 export const systemStore = {
   useAccountStore: (pinia?: Pinia) => useAccountStore(pinia),
   useDBStore: (pinia?: Pinia) => useDBStore(pinia),
-  useFullscreenStore: (pinia?: Pinia) => useFullscreenStore(pinia),
   useGrayStore: (pinia?: Pinia) => useGrayStore(pinia),
   useLayoutStore: (pinia?: Pinia) => useLayoutStore(pinia),
   useLogStore: (pinia?: Pinia) => useLogStore(pinia),

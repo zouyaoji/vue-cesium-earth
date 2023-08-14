@@ -1,13 +1,13 @@
 /*
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2021-12-08 23:26:13
- * @LastEditTime: 2022-07-23 13:36:42
- * @LastEditors: zouyaoji
+ * @LastEditTime: 2023-08-14 17:47:11
+ * @LastEditors: zouyaoji 370681295@qq.com
  * @Description:
- * @FilePath: \vue-cesium-demo\src\main.ts
+ * @FilePath: \vue-cesium-earth\src\main.ts
  */
 import { createApp } from 'vue'
-import { Quasar, Notify, Dialog, LocalStorage } from 'quasar'
+import { Quasar, Notify, Dialog, LocalStorage, Loading, AppFullscreen } from 'quasar'
 import quasarLang from 'quasar/lang/zh-CN'
 import VueCesium from 'vue-cesium'
 // Import store and router instances
@@ -30,7 +30,9 @@ app.use(Quasar, {
   plugins: {
     Notify,
     Dialog,
-    LocalStorage
+    LocalStorage,
+    Loading,
+    AppFullscreen
   }, // import Quasar plugins and add here
   lang: quasarLang
 })

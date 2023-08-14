@@ -95,7 +95,7 @@ const dropdownClicked = () => {
   // store.dispatch(`jtCesiumVue/toolbar/${ToolbarActionTypes.SET_DROP_DOWN}`, val)
 }
 
-const itemClicked = (e: MouseEvent) => {
+const itemClicked = (e: Event) => {
   const { item } = props
   const { viewer } = $vc
   if (!viewer) {

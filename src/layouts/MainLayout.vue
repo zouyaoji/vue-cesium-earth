@@ -1,8 +1,8 @@
 <!--
  * @Author: zouyaoji@https://github.com/zouyaoji
  * @Date: 2021-12-14 16:36:31
- * @LastEditTime: 2022-10-22 09:02:45
- * @LastEditors: zouyaoji
+ * @LastEditTime: 2023-08-14 17:48:25
+ * @LastEditors: zouyaoji 370681295@qq.com
  * @Description:
  * @FilePath: \vue-cesium-earth\src\layouts\MainLayout.vue
 -->
@@ -36,6 +36,7 @@ import { store } from '@src/store'
 import { storeToRefs } from 'pinia'
 import { useRouter, useRoute } from 'vue-router'
 import { ThemeOptions } from '@src/types/theme'
+import { AppFullscreen } from 'quasar'
 
 defineOptions({
   name: 'VcDemoMainLayout'
@@ -102,8 +103,6 @@ watch(
 onMounted(() => {
   // 用户登录后从本地数据库加载一系列的设置
   store.system.useAccountStore().load()
-  // 初始化全屏监听
-  store.system.useFullscreenStore().listen()
   window.onunhandledrejection = error => {
     store.system.useLogStore(pinia).push({
       message: get(error, 'reason.message', 'Unknown error'),
@@ -126,6 +125,13 @@ onMounted(() => {
       }
     })
   }
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'F11') {
+      e.preventDefault()
+      AppFullscreen.toggle()
+    }
+  })
 })
 
 const onViewerReady = () => {

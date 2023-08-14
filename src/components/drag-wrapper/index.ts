@@ -54,12 +54,14 @@ export default defineComponent({
         allowFrom: '.drag-handle',
         inertia: true,
         onmove: dragMoveListener,
-        // keep the element within the element
-        restrict: {
-          restriction: props.restriction,
-          endOnly: true,
-          elementRect: { left: 0, right: 1, top: 0, bottom: 1 }
-        }
+        modifiers: [
+          interact.modifiers.restrict({
+            // keep the element within the element
+            restriction: props.restriction as string,
+            endOnly: true,
+            elementRect: { left: 0, right: 1, top: 0, bottom: 1 }
+          })
+        ]
       })
 
       addEventListener('resize', resizeListener, false)
